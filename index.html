@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoGuard — Personal Data Defense Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>EchoGuard</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#dashboard" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#logs" class="nav-link"><i class="fas fa-list"></i> Logs</a></li>
+                <li><a href="#alerts" class="nav-link"><i class="fas fa-bell"></i> Alerts</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1><i class="fas fa-shield-virus"></i> Privacy Dashboard</h1>
+            <p>Monitor and detect suspicious access patterns in real-time</p>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <div class="glass-card">
+                <h2><i class="fas fa-plus-circle"></i> Log New Access</h2>
+                <form id="logForm" class="log-form">
+                    <div class="form-group">
+                        <label for="appName"><i class="fas fa-mobile-alt"></i> App Name</label>
+                        <input type="text" id="appName" name="appName" placeholder="e.g., Chrome, UnknownApp, SpyWareX" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="permission"><i class="fas fa-key"></i> Permission</label>
+                        <select id="permission" name="permission" required>
+                            <option value="">Select Permission</option>
+                            <option value="camera">Camera</option>
+                            <option value="microphone">Microphone</option>
+                            <option value="location">Location</option>
+                            <option value="storage">Storage</option>
+                            <option value="contacts">Contacts</option>
+                            <option value="files">Files</option>
+                            <option value="notifications">Notifications</option>
+                            <option value="calendar">Calendar</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Log Access
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section class="dashboard-section" id="dashboard">
+            <div class="glass-card">
+                <div class="dashboard-header">
+                    <h2><i class="fas fa-chart-bar"></i> Access Logs Dashboard</h2>
+                    <div class="dashboard-controls">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search logs...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="suspicious">Suspicious</button>
+                            <button class="filter-btn" data-filter="normal">Normal</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-list"></i></div>
+                        <div class="stat-info">
+                            <h3 id="totalLogs">0</h3>
+                            <p>Total Logs</p>
+                        </div>
+                    </div>
+                    <div class="stat-card suspicious">
+                        <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="stat-info">
+                            <h3 id="suspiciousLogs">0</h3>
+                            <p>Suspicious Access</p>
+                        </div>
+                    </div>
+                    <div class="stat-card normal">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info">
+                            <h3 id="normalLogs">0</h3>
+                            <p>Normal Access</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logs Table -->
+                <div class="logs-container">
+                    <table class="logs-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-clock"></i> Timestamp</th>
+                                <th><i class="fas fa-mobile-alt"></i> App Name</th>
+                                <th><i class="fas fa-key"></i> Permission</th>
+                                <th><i class="fas fa-info-circle"></i> Status</th>
+                                <th><i class="fas fa-comment"></i> Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsTableBody">
+                            <tr>
+                                <td colspan="5" class="no-logs">No logs available. Start logging access events!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
